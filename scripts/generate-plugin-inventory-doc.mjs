@@ -25,11 +25,13 @@ const PLUGIN_DOC_ALIASES = new Map([
   ["duckduckgo", "/tools/duckduckgo-search"],
   ["exa", "/tools/exa-search"],
   ["firecrawl", "/tools/firecrawl"],
+  ["parallel", "/tools/parallel-search"],
   ["perplexity", "/tools/perplexity-search"],
   ["policy", "/cli/policy"],
   ["tavily", "/tools/tavily"],
   ["tokenjuice", "/tools/tokenjuice"],
 ]);
+const PLUGIN_DOC_LABEL_ALIASES = new Map([["parallel", "Parallel search"]]);
 const MANUAL_SECTION_START = "<!-- openclaw-plugin-reference:manual-start -->";
 const MANUAL_SECTION_END = "<!-- openclaw-plugin-reference:manual-end -->";
 
@@ -43,6 +45,22 @@ function readJsonPath(filePath) {
 
 function fileExists(relativePath) {
   return fs.existsSync(path.join(ROOT, relativePath));
+}
+
+function frontmatterHasWrittenByAi(content) {
+  if (!content.startsWith("---\n") && !content.startsWith("---\r\n")) {
+    return false;
+  }
+  const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n/u.exec(content);
+  return /^written_by:\s*ai\s*$/mu.test(match?.[1] ?? "");
+}
+
+function shouldWriteAiLabel(relativePath) {
+  const fullPath = path.join(ROOT, relativePath);
+  if (!fs.existsSync(fullPath)) {
+    return true;
+  }
+  return frontmatterHasWrittenByAi(fs.readFileSync(fullPath, "utf8"));
 }
 
 function collectExcludedPackagedExtensionDirs(rootPackageJson) {
@@ -215,7 +233,12 @@ function resolveDocs({ dirName, manifest, packageJson }) {
   const links = [];
   const pluginAlias = PLUGIN_DOC_ALIASES.get(manifest.id) ?? PLUGIN_DOC_ALIASES.get(dirName);
   if (pluginAlias) {
-    pushUniqueDocLink(links, { href: pluginAlias, label: manifest.id ?? dirName });
+    const pluginAliasLabel =
+      PLUGIN_DOC_LABEL_ALIASES.get(manifest.id) ??
+      PLUGIN_DOC_LABEL_ALIASES.get(dirName) ??
+      manifest.id ??
+      dirName;
+    pushUniqueDocLink(links, { href: pluginAlias, label: pluginAliasLabel });
   }
 
   const channelDoc = normalizeDocPath(packageJson.openclaw?.channel?.docsPath);
@@ -336,37 +359,20 @@ function resolveStatus({ dirName, packageJson, excludedDirs }) {
   return "source";
 }
 
-function escapeCell(value) {
-  return String(value).replaceAll("\n", " ").replaceAll("|", "\\|");
+function escapeInline(value) {
+  return String(value).replaceAll("\n", " ").trim();
 }
 
-function renderTable(records) {
-  const rows = [
-    ["Plugin", "Description", "Distribution", "Surface"],
-    ...records.map((record) => [
-      docLink({ href: pluginReferencePath(record.id), label: escapeCell(record.id) }),
-      escapeCell(record.description),
-      `\`${escapeCell(record.packageName)}\`<br />${escapeCell(record.installRoute)}`,
-      escapeCell(record.surface),
-    ]),
-  ];
-  const widths = rows[0].map((_, index) => Math.max(...rows.map((row) => row[index].length), 3));
-  const lines = [];
-  lines.push(formatTableRow(rows[0], widths));
-  lines.push(
-    formatTableRow(
-      widths.map((width) => "-".repeat(width)),
-      widths,
-    ),
-  );
-  for (const row of rows.slice(1)) {
-    lines.push(formatTableRow(row, widths));
-  }
-  return lines.join("\n");
-}
-
-function formatTableRow(row, widths) {
-  return `| ${row.map((cell, index) => cell.padEnd(widths[index])).join(" | ")} |`;
+function renderPluginList(records) {
+  return records
+    .map(
+      (record) =>
+        `- **${docLink({ href: pluginReferencePath(record.id), label: escapeInline(record.id) })}** (` +
+        `\`${escapeInline(record.packageName)}\`) - ${escapeInline(record.installRoute)}
+  - Description: ${escapeInline(record.description)}
+  - Surface: ${escapeInline(record.surface)}`,
+    )
+    .join("\n");
 }
 
 function renderRelatedDocs(record) {
@@ -417,11 +423,11 @@ ${manualSections}
 ${MANUAL_SECTION_END}`;
 }
 
-function renderReferencePage(record, manualSections = "") {
+function renderReferencePage(record, manualSections = "", options = {}) {
   const relatedDocs = renderRelatedDocs(record);
   const manualBlock = renderManualReferenceSections(manualSections);
   return `---
-summary: "${record.description.replaceAll('"', '\\"')}"
+${options.writtenByAi ? "written_by: ai\n" : ""}summary: "${record.description.replaceAll('"', '\\"')}"
 read_when:
   - You are installing, configuring, or auditing the ${record.id} plugin
 title: "${record.name} plugin"
@@ -444,6 +450,7 @@ ${record.surface}${manualBlock ? `\n\n${manualBlock}` : ""}${relatedDocs ? `\n\n
 
 function renderReferenceIndex(records) {
   return `---
+written_by: ai
 summary: "Generated index of OpenClaw plugin reference pages"
 read_when:
   - You need a reference page for a specific OpenClaw plugin
@@ -460,7 +467,11 @@ This page is generated from \`extensions/*/package.json\` and
 pnpm plugins:inventory:gen
 \`\`\`
 
-${renderTable(records)}
+Each entry includes the package, install route, description, and exposed
+surface. The list format is intentional so long generated package names and
+surface contracts wrap on normal screens.
+
+${renderPluginList(records)}
 `;
 }
 
@@ -537,7 +548,9 @@ function writeGeneratedDocs(records) {
     const manualSections = readManualReferenceSections(relativePath);
     fs.writeFileSync(
       path.join(ROOT, relativePath),
-      renderReferencePage(record, manualSections),
+      renderReferencePage(record, manualSections, {
+        writtenByAi: shouldWriteAiLabel(relativePath),
+      }),
       "utf8",
     );
   }
@@ -549,7 +562,12 @@ function readGeneratedDocs(records) {
     [REFERENCE_INDEX_PATH, renderReferenceIndex(records)],
     ...records.map((record) => {
       const relativePath = path.join(REFERENCE_DIR, `${record.id}.md`);
-      return [relativePath, renderReferencePage(record, readManualReferenceSections(relativePath))];
+      return [
+        relativePath,
+        renderReferencePage(record, readManualReferenceSections(relativePath), {
+          writtenByAi: shouldWriteAiLabel(relativePath),
+        }),
+      ];
     }),
   ];
 }
@@ -563,6 +581,7 @@ function renderDocument() {
   };
 
   return `---
+written_by: ai
 summary: "Generated inventory of OpenClaw plugins shipped in core, published externally, or kept source-only"
 read_when:
   - You are deciding whether a plugin ships in the core npm package or installs separately
@@ -592,9 +611,9 @@ dependencies are available.
 
 ## Install a plugin
 
-Use the **Distribution** column to decide whether install is needed. Plugins that
-say \`included in OpenClaw\` are already present in the core package. Official
-external packages need one install, then a Gateway restart.
+Use the install route in each entry to decide whether install is needed. Plugins
+that say \`included in OpenClaw\` are already present in the core package.
+Official external packages need one install, then a Gateway restart.
 
 For example, Discord is an official external package:
 
@@ -611,17 +630,21 @@ explicit source. After install, follow the plugin's setup doc, such as
 [Manage plugins](/plugins/manage-plugins) for update, uninstall, and publishing
 commands.
 
+Each entry includes the package, install route, description, and exposed
+surface. The list format is intentional so long generated package names and
+surface contracts wrap on normal screens.
+
 ## Core npm package
 
-${renderTable(groups.core)}
+${renderPluginList(groups.core)}
 
 ## Official external packages
 
-${renderTable(groups.external)}
+${renderPluginList(groups.external)}
 
 ## Source checkout only
 
-${renderTable(groups.source)}
+${renderPluginList(groups.source)}
 `;
 }
 
