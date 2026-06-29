@@ -68,13 +68,20 @@ autopilot-product/
 │   └── 07-application-tracker.csv
 ├── sales-page/
 │   └── index.html             ← the page that does the selling (deploy free)
+├── order-bump/                 ← the $17 add-on product (sold at checkout)
+│   └── recruiter-outreach-pack.md
 ├── delivery/
 │   ├── gumroad-setup.md        ← stand up checkout + instant delivery (free)
 │   ├── welcome-email.md        ← the automated buyer email
 │   └── upsell-ladder.md        ← how to raise revenue per visitor
 ├── marketing/
 │   ├── traffic-playbook.md     ← the free-traffic engine (the hard, real part)
-│   └── content-bank.md         ← 30 ready-to-post pieces, zero camera
+│   ├── content-bank.md         ← 30 ready-to-post pieces, zero camera
+│   ├── week-one-posts.md       ← 7 days of fully-written posts + Pinterest pins
+│   ├── lead-magnet-resume-checklist.md ← free email-capture hook
+│   └── email-welcome-sequence.md       ← 5-email automation: free download → $27 sale
+├── AI-Job-Search-Toolkit.zip   ← upload-ready $27 product bundle (Gumroad)
+├── Recruiter-Outreach-Pack.zip ← upload-ready $17 order-bump bundle
 └── automation/
     └── the-loop.md             ← what runs itself vs. what you touch weekly
 ```
