@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The AI Job Search Toolkit — Land Interviews in Half the Time</title>
+<meta name="description" content="Beat the resume robots, write tailored cover letters in 2 minutes, and walk into interviews already knowing the questions. A complete AI-powered job search system. $27." />
+<!--
+  ============================================================
+  SETUP: Replace every BUY_URL placeholder below (there are 3) with your
+  Gumroad product link (e.g. https://yourname.gumroad.com/l/toolkit).
+  Then host this single file free on Vercel, Netlify, Cloudflare
+  Pages, or GitHub Pages. That's it.
+  ============================================================
+-->
+<style>
+  :root {
+    --ink: #14181f; --muted: #5b6470;
+    --bg: #ffffff; --soft: #f5f7fa; --line: #e6eaef;
+    --brand: #1f6feb; --brand-dark: #1554b8; --accent: #16a34a;
+    --warn: #b45309;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink); background: var(--bg); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 22px; }
+  h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(30px, 6vw, 48px); font-weight: 800; }
+  h2 { font-size: clamp(24px, 4.5vw, 34px); font-weight: 800; margin-bottom: 18px; }
+  p { margin-bottom: 16px; }
+  .lead { font-size: 19px; color: #36404d; }
+  a { color: var(--brand); }
+
+  .badge {
+    display: inline-block; background: #eef4ff; color: var(--brand-dark);
+    font-size: 13px; font-weight: 700; padding: 6px 13px; border-radius: 999px;
+    margin-bottom: 22px; letter-spacing: 0.01em;
+  }
+  header { padding: 64px 0 50px; text-align: center; background:
+    radial-gradient(1200px 400px at 50% -10%, #eaf1ff 0%, #ffffff 60%); }
+  header p.lead { max-width: 600px; margin: 18px auto 30px; }
+
+  .cta {
+    display: inline-block; background: var(--brand); color: #fff; font-weight: 700;
+    font-size: 18px; padding: 16px 34px; border-radius: 12px; text-decoration: none;
+    box-shadow: 0 6px 20px rgba(31,111,235,.28); transition: transform .08s ease, background .15s ease;
+  }
+  .cta:hover { background: var(--brand-dark); transform: translateY(-1px); }
+  .cta-sub { display: block; font-size: 14px; color: var(--muted); margin-top: 12px; }
+  .price-strike { color: var(--muted); text-decoration: line-through; margin-right: 8px; }
+
+  section { padding: 50px 0; border-top: 1px solid var(--line); }
+  .soft { background: var(--soft); }
+
+  .pain { list-style: none; }
+  .pain li { padding: 12px 0 12px 34px; position: relative; font-size: 17px; }
+  .pain li::before { content: "✕"; position: absolute; left: 0; top: 12px; color: #d33; font-weight: 800; }
+
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr; }
+  @media (min-width: 620px) { .grid { grid-template-columns: 1fr 1fr; } }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 22px;
+  }
+  .card h3 { font-size: 18px; margin-bottom: 8px; }
+  .card .n { font-size: 13px; font-weight: 700; color: var(--brand); margin-bottom: 6px; display:block; }
+  .card p { font-size: 15px; color: #4a5462; margin: 0; }
+
+  .check { list-style: none; }
+  .check li { padding: 9px 0 9px 32px; position: relative; font-size: 17px; }
+  .check li::before { content: "✓"; position: absolute; left: 0; top: 9px; color: var(--accent); font-weight: 800; }
+
+  .offer-box {
+    background: #fff; border: 2px solid var(--brand); border-radius: 18px;
+    padding: 34px; text-align: center; box-shadow: 0 10px 40px rgba(31,111,235,.12);
+  }
+  .offer-box .price { font-size: 52px; font-weight: 800; letter-spacing: -0.03em; }
+  .offer-box .price small { font-size: 20px; color: var(--muted); font-weight: 600; }
+
+  .guarantee {
+    border: 1px dashed var(--accent); background: #f0fdf4; border-radius: 14px;
+    padding: 22px 24px; display: flex; gap: 16px; align-items: flex-start;
+  }
+  .guarantee .seal { font-size: 34px; line-height: 1; }
+
+  details { border-bottom: 1px solid var(--line); padding: 16px 0; }
+  summary { font-weight: 700; cursor: pointer; font-size: 17px; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; float: right; color: var(--brand); font-weight: 800; }
+  details[open] summary::after { content: "–"; }
+  details p { margin: 12px 0 0; color: #4a5462; }
+
+  .disclaimer { font-size: 13px; color: var(--muted); }
+  footer { padding: 40px 0 60px; text-align: center; color: var(--muted); font-size: 14px; }
+  .center { text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="badge">No paid AI subscription needed · Works with free ChatGPT, Claude &amp; Gemini</span>
+    <h1>Stop getting ghosted.<br />Start landing interviews.</h1>
+    <p class="lead">The AI Job Search Toolkit gives you the exact prompts and templates to beat the resume robots, write a tailored cover letter in 2 minutes, and walk into any interview already knowing the questions.</p>
+    <a class="cta" href="#offer">Get the Toolkit — $27</a>
+    <span class="cta-sub">Instant download · 30-day money-back guarantee</span>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>The job search is broken. You already know it.</h2>
+    <ul class="pain">
+      <li>You send 50 applications into a black hole and hear nothing back.</li>
+      <li>Your resume gets auto-rejected by software before a human ever sees it.</li>
+      <li>You stare at a blank page rewriting your cover letter for the tenth time.</li>
+      <li>You walk into interviews and freeze on questions you should've seen coming.</li>
+      <li>You accept the first salary offered because asking for more feels terrifying.</li>
+    </ul>
+    <p class="lead" style="margin-top:10px;">It's not you. It's that nobody handed you the system. <strong>Now someone has.</strong></p>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="wrap">
+    <h2>Everything you get inside</h2>
+    <div class="grid">
+      <div class="card"><span class="n">01</span><h3>The ATS Resume System</h3><p>Reverse-engineer any job posting and rebuild your resume to sail past the screening robots — and impress the human after.</p></div>
+      <div class="card"><span class="n">02</span><h3>ATS-Safe Templates</h3><p>Three clean, machine-readable layouts. Paste your content in and you're done.</p></div>
+      <div class="card"><span class="n">03</span><h3>Cover Letter Prompt Pack</h3><p>A tailored, human-sounding cover letter for any job in under two minutes.</p></div>
+      <div class="card"><span class="n">04</span><h3>LinkedIn Optimizer</h3><p>Turn your profile into a recruiter magnet so opportunities come to you.</p></div>
+      <div class="card"><span class="n">05</span><h3>Interview Prep Pack</h3><p>Predict your exact questions and rehearse with AI as your personal interviewer.</p></div>
+      <div class="card"><span class="n">06</span><h3>Salary Negotiation Scripts</h3><p>Word-for-word scripts to confidently get paid what you're worth.</p></div>
+      <div class="card"><span class="n">07</span><h3>Application Tracker</h3><p>A ready-to-use tracker so you never lose a lead or miss a follow-up.</p></div>
+      <div class="card" style="border-color:var(--brand);"><span class="n">BONUS</span><h3>Copy-Paste Prompts</h3><p>Every prompt is plug-and-play. No prompt-writing skill required.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Why this works</h2>
+    <ul class="check">
+      <li><strong>It's built around how hiring actually works in 2026</strong> — ATS keyword matching, recruiter search, behavioral interviews.</li>
+      <li><strong>You bring the AI you already have.</strong> Free ChatGPT, Claude, Gemini, or Copilot. No subscriptions to buy.</li>
+      <li><strong>It's specific, not generic advice.</strong> You paste the real job posting; the AI tailors everything to it.</li>
+      <li><strong>You can use it tonight.</strong> Open it, copy a prompt, get results in minutes.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="wrap center">
+    <h2>One price. Everything included.</h2>
+    <div class="offer-box">
+      <div class="price"><span class="price-strike">$79</span>$27<small> one-time</small></div>
+      <p style="margin:14px 0 22px;color:#4a5462;">The complete AI Job Search Toolkit — all 7 modules plus the prompt library. Yours forever.</p>
+      <a class="cta" href="#offer">Get Instant Access — $27</a>
+      <span class="cta-sub">Delivered instantly · Works on any device · 30-day guarantee</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="guarantee">
+      <div class="seal">🛡️</div>
+      <div>
+        <h3 style="margin-bottom:6px;">The "land it or it's free" guarantee</h3>
+        <p style="margin:0;color:#3c4654;">Use the toolkit for 30 days. If it doesn't make your job search faster, sharper, and less stressful, email me for a full refund. No forms, no hard feelings. The risk is entirely on me.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="soft">
+  <div class="wrap">
+    <h2>Questions, answered</h2>
+    <details open><summary>Do I need to pay for ChatGPT or any AI?</summary><p>No. Every prompt is written to work in the free tier of ChatGPT, Claude, Gemini, or Microsoft Copilot. If you ever upgrade, it works even better — but it's not required.</p></details>
+    <details><summary>Will this work for my industry?</summary><p>Yes. The system works for any field because you feed the AI your real experience and the real job posting — it tailors everything to you, whether you're in marketing, tech, healthcare, trades, finance, or making a career change.</p></details>
+    <details><summary>I'm not good with AI or "prompting." Is it complicated?</summary><p>Not at all. You copy a prompt, paste in your info, and hit enter. If you can copy and paste, you can use this.</p></details>
+    <details><summary>How do I get it after buying?</summary><p>Instantly. The moment you check out, you get a download link by email and on-screen. Files open on any phone, tablet, or computer.</p></details>
+    <details><summary>What if it's not for me?</summary><p>Email within 30 days for a full, no-questions refund. You keep what you learned.</p></details>
+  </div>
+</section>
+
+<section>
+  <div class="wrap center">
+    <h2>Your next interview is one system away.</h2>
+    <p class="lead" style="max-width:560px;margin:0 auto 26px;">Stop guessing. Stop getting filtered out. Get the toolkit and run your job search like someone who knows exactly what they're doing.</p>
+    <a class="cta" href="#offer">Get the AI Job Search Toolkit — $27</a>
+    <span class="cta-sub">Instant access · 30-day money-back guarantee</span>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="disclaimer">This toolkit provides tools, templates, and guidance to improve your job search. It does not guarantee employment, interviews, or any specific salary outcome — results depend on your effort, market, and qualifications. Not affiliated with OpenAI, Anthropic, Google, Microsoft, or LinkedIn.</p>
+    <p style="margin-top:14px;">© 2026 · The AI Job Search Toolkit</p>
+  </div>
+</footer>
+
+</body>
+</html>
