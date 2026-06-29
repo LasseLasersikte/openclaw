@@ -70,9 +70,12 @@ autopilot-product/
 │   └── index.html             ← the page that does the selling (deploy free)
 ├── order-bump/                 ← the $17 add-on product (sold at checkout)
 │   └── recruiter-outreach-pack.md
+├── upsell/                     ← the $47 upsell product (sold after purchase)
+│   └── interview-mastery-pack.md
 ├── delivery/
 │   ├── gumroad-setup.md        ← stand up checkout + instant delivery (free)
 │   ├── welcome-email.md        ← the automated buyer email
+│   ├── email-automation-setup.md ← wire the free email list (MailerLite/Brevo)
 │   └── upsell-ladder.md        ← how to raise revenue per visitor
 ├── marketing/
 │   ├── traffic-playbook.md     ← the free-traffic engine (the hard, real part)
@@ -82,6 +85,7 @@ autopilot-product/
 │   └── email-welcome-sequence.md       ← 5-email automation: free download → $27 sale
 ├── AI-Job-Search-Toolkit.zip   ← upload-ready $27 product bundle (Gumroad)
 ├── Recruiter-Outreach-Pack.zip ← upload-ready $17 order-bump bundle
+├── Interview-Mastery-Pack.zip  ← upload-ready $47 upsell bundle
 └── automation/
     └── the-loop.md             ← what runs itself vs. what you touch weekly
 ```
