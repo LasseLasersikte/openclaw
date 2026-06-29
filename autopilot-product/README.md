@@ -74,6 +74,7 @@ autopilot-product/
 │   └── interview-mastery-pack.md
 ├── delivery/
 │   ├── gumroad-setup.md        ← stand up checkout + instant delivery (free)
+│   ├── gumroad-copy.md         ← paste-and-go copy for all 3 product listings
 │   ├── welcome-email.md        ← the automated buyer email
 │   ├── email-automation-setup.md ← wire the free email list (MailerLite/Brevo)
 │   └── upsell-ladder.md        ← how to raise revenue per visitor
