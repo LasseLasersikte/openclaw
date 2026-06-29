@@ -57,6 +57,7 @@ Two honest levers if 500 visitors/day feels far:
 ```
 autopilot-product/
 ├── README.md                  ← you are here (the system + the honest math)
+├── LAUNCH-DAY.md              ← your first 60 minutes, in order (run this on go-live)
 ├── product/                   ← THE $27 PRODUCT (the thing buyers download)
 │   ├── 00-START-HERE.md
 │   ├── 01-ats-resume-system.md
